@@ -1,4 +1,5 @@
 import pse
+import random
 
 pse.initialize()
 
@@ -16,28 +17,21 @@ for x in range(5):
         )
 
 button = pse.Button()
-button.location = (0, 0, -100)
+button.location = (200, 200, -100)
 button.create()
 
-door = pse.Door()
-door.location = (-150, 0, -100)
-door.create()
+# door = pse.Door()
+# door.location = (-150, 0, -100)
+# door.create()
 
 cube = pse.WeightCube()
-cube.location = (0, 0, 200)
+cube.location = (200, -200, 0)
 cube.create()
 
 @button.on_element_changed()
 def Test(state):
-    if state != 0: return
-    global cube
-
-    if cube:
-        cube.destroy()
-
-    cube = pse.WeightCube()
-    cube.location = (0, 0, 200)
-    cube.create()
+    if state != 0:
+        button.location = (random.randint(-500, 500), random.randint(-500, 500), -100)
 
 while True:
     pse.poll_events()
