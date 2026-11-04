@@ -1,4 +1,7 @@
 /.idea
-# /dist
+/dist
+/build
 /src/pse.egg-info
-/src/pse/__pycache__
+__pycache__
+/test_env
+*.egg-info

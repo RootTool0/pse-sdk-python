@@ -1,16 +1,38 @@
 [build-system]
-requires = ["setuptools>=61.0.0", "wheel"]
+requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "pse"
-version = "1.0.0"
+name = "pse-sdk-python"
+version = "1.0.1"
 description = "Python binding for Portal Solver Editor (PSE) SDK"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "RootTool0"}]
+keywords = ["portal", "solver", "pse", "sdk", "game", "modding"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Operating System :: Microsoft :: Windows",
+    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Developers",
+    "Topic :: Games/Entertainment",
+]
+
+[project.urls]
+Homepage = "https://github.com/RootTool0/pse-sdk-python"
+Repository = "https://github.com/RootTool0/pse-sdk-python"
+Issues = "https://github.com/RootTool0/pse-sdk-python/issues"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+pse = ["*.dll"]

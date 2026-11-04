@@ -6,7 +6,7 @@ class Vector2(Structure): _fields_ = [("x", c_float), ("y", c_float)]
 class Vector3(Structure): _fields_ = [("x", c_float), ("y", c_float), ("z", c_float)]
 class Quat(Structure): _fields_ = [("x", c_float), ("y", c_float), ("z", c_float), ("w", c_float)]
 class Transform(Structure): _fields_ = [("quat", Quat), ("location", Vector3), ("scale", Vector3)]
-class Color(Structure): _fields_ = [("r", c_uint8), ("g", c_uint8), ("b", c_uint8), ("a", c_uint8)]
+class Color(Structure): _fields_ = [("r", c_uint8), ("g", c_uint8), ("b", c_uint8)]
 
 # enums.h
 class Command(IntEnum):
@@ -117,6 +117,7 @@ class Mesh(IntEnum):
 	LASER_FRAME         = 0x000C,
 	LASER_FRAME_SHIFTED = 0x000D,
 	PLANE_Z_SHIFTED     = 0x000E,
+	CUBE_DROPPER_FRAME  = 0x000F,
 
 class Material(IntEnum):
 	WALL_WHITE_SMALL            = 0x0000,
@@ -134,6 +135,9 @@ class Material(IntEnum):
 
 	WINDOW_METAL_GRID           = 0x000A,
 	WINDOW_GLASS_METAL_GRID     = 0x000B,
+
+	WALL_YELLOW_1_0             = 0x000C,
+	WALL_YELLOW_1_5             = 0x000D,
 
 class Class(IntEnum):
 	ENTRY_ELEVATOR           = 0x0000,

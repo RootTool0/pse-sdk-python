@@ -14,27 +14,29 @@ def load_dll(custom_path: Optional[str] = None) -> ctypes.CDLL:
         dll_path = os.path.abspath(custom_path)
     else:
         package_dir = os.path.dirname(os.path.abspath(__file__))
-        dll_path = os.path.join(package_dir, "../../dist/bin/PSE.dll")
+        dll_path = os.path.join(package_dir, "pse.dll")
 
     if not os.path.exists(dll_path):
         raise FileNotFoundError(
-            f"[PSE] Критическая ошибка: Не удалось найти бинарник SDK по пути:\n{dll_path}\n"
-            f"Положите \"pse.dll\" в папку библиотеки или укажите путь вручную при initialize()."
+            f"[PSE] Cannot find pse.dll at:\n  {dll_path}\n"
+            f"Place pse.dll next to the package, or pass an explicit path:\n"
+            f"  pse.initialize('C:/path/to/pse.dll')"
         )
 
     try:
         _dll = ctypes.CDLL(dll_path, winmode=0)
         return _dll
     except OSError as e:
-        raise RuntimeError(f"[PSE] Ошибка операционной системы при загрузке {dll_path}:\n{e}")
+        raise RuntimeError(f"[PSE] Failed to load {dll_path}:\n{e}") from e
 
 def get_dll() -> ctypes.CDLL:
     global _dll
 
     if _dll is None:
-        raise RuntimeError("[PSE] Ошибка: Попытка обратиться к функциям SDK до вызова pse.initialize().")
+        raise RuntimeError("[PSE] SDK is not initialized. Call pse.initialize() first.")
     return _dll
 
 def unload_dll() -> None:
     global _dll
+
     _dll = None

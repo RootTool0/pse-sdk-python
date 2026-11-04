@@ -14,30 +14,27 @@ class Data(ctypes.Structure):
 
         if offset + size > 60:
             raise ValueError(
-                f"[PSE] Ошибка упаковки: данные размером {size} байт "
-                f"выходят за пределы 60-байтного буфера по смещению {offset}!"
+                f"[PSE] Pack error: {size} bytes at offset {offset} "
+                f"exceed the 60-byte payload buffer."
             )
 
-        dest_address = ctypes.addressof(self.data) + offset
-        src_address = ctypes.addressof(ctypes_value)
-
-        ctypes.memmove(dest_address, src_address, size)
+        dest = ctypes.addressof(self.data) + offset
+        src = ctypes.addressof(ctypes_value)
+        ctypes.memmove(dest, src, size)
 
     def get(self, offset: int, ctypes_type):
         size = ctypes.sizeof(ctypes_type)
 
         if offset + size > 60:
             raise ValueError(
-                f"[PSE] Ошибка чтения: попытка прочитать {size} байт "
-                f"выходит за пределы 60-байтного буфера по смещению {offset}!"
+                f"[PSE] Read error: {size} bytes at offset {offset} "
+                f"exceed the 60-byte payload buffer."
             )
 
         result = ctypes_type()
-
-        dest_address = ctypes.addressof(result)
-        src_address = ctypes.addressof(self.data) + offset
-
-        ctypes.memmove(dest_address, src_address, size)
+        dest = ctypes.addressof(result)
+        src = ctypes.addressof(self.data) + offset
+        ctypes.memmove(dest, src, size)
         return result
 
 # pse.h
@@ -65,6 +62,6 @@ def setup_dll_functions() -> None:
             func.argtypes = argtypes
         except AttributeError:
             raise AttributeError(
-                f"[PSE Критическая ошибка] Функция '{name}' не найдена в \"pse.dll\"!\n"
-                f"Убедитесь, что вы экспортировали эту функцию на стороне C++ (extern \"C\" __declspec(dllexport))."
+                f"[PSE] Function '{name}' not found in pse.dll. "
+                f"Make sure it is exported on the C side (extern \"C\" __declspec(dllexport))."
             )
