@@ -54,7 +54,7 @@ from .types import (
     Result,
 )
 
-__version__ = "1.0.1"
+__version__ = "1.0.3"
 
 _is_initialized = False
 

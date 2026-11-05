@@ -238,7 +238,7 @@ class Element(ABC):
 
     @visibility.setter
     def visibility(self, new_visibility: bool) -> None:
-        if self._guid == -1: retur
+        if self._guid == -1: return
 
         data = Data()
         data.header = Command.ELEMENT_SET_VISIBILITY
